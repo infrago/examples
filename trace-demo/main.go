@@ -43,7 +43,6 @@ func init() {
 		Action: func(ctx *infra.Context) {
 			data := ctx.Invoke("trace.child", Map{"from": "startup"})
 			if res := ctx.Result(); res != nil && res.Fail() {
-
 				return
 			}
 

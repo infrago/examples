@@ -1,0 +1,10 @@
+[infrago]
+name = "token-demo"
+
+[http]
+port = 8096
+cookie = "token"
+
+[token]
+driver = "memory"
+secret = "demo-secret"
