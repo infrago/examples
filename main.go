@@ -66,7 +66,7 @@ func init() {
 	// 	Uri: "/json", Name: "JSON", Desc: "JSON",
 	// 	Action: func(ctx *http.Context) {
 	// 		data, _ := cache.Read("key")
-	// 		ctx.Echo(nil, Map{
+	// 		ctx.Answer(nil, Map{
 	// 			"msg":   "hello world.",
 	// 			"cache": data,
 	// 		})
