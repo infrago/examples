@@ -106,12 +106,7 @@ require (
 	modernc.org/sqlite v1.39.0 // indirect
 )
 
-replace github.com/infrago/data => ../data
 
-replace github.com/infrago/data-mongodb => ../data-mongodb
 
-replace github.com/infrago/data-mysql => ../data-mysql
 
-replace github.com/infrago/data-postgres => ../data-postgres
 
-replace github.com/infrago/data-sqlite => ../data-sqlite
