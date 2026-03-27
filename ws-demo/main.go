@@ -146,7 +146,7 @@ const demoPage = `<!doctype html>
   <div class="wrap">
     <section class="hero">
       <h1>WebSocket Demo</h1>
-      <p>这个页面直接走 infrago 的 <code>web.Context.Upgrade()</code> 和 <code>ws</code> 模块。支持 echo、join、groupcast、broadcast。</p>
+      <p>这个页面同时演示默认 <code>ctx.Upgrade()</code> 和自定义 <code>web.Endpoint</code> 接入。支持 echo、join、groupcast、broadcast。</p>
     </section>
 
     <section class="grid">
@@ -154,6 +154,7 @@ const demoPage = `<!doctype html>
         <div class="label">Client</div>
         <div class="row">
           <button class="primary" onclick="connect()">Connect</button>
+          <button onclick="connectCustom()">Connect Custom</button>
           <button onclick="disconnect()">Disconnect</button>
         </div>
         <div class="status" id="status">status: idle</div>
@@ -206,16 +207,16 @@ const demoPage = `<!doctype html>
       logNode.textContent = line + "\n" + logNode.textContent;
     }
 
-    function connect() {
+    function connectTo(path) {
       if (ws && (ws.readyState === WebSocket.OPEN || ws.readyState === WebSocket.CONNECTING)) {
         return;
       }
       const schema = location.protocol === "https:" ? "wss://" : "ws://";
-      ws = new WebSocket(schema + location.host + "/socket");
+      ws = new WebSocket(schema + location.host + path);
 
       ws.onopen = () => {
-        statusNode.textContent = "status: connected";
-        write("open", { ok: true });
+        statusNode.textContent = "status: connected " + path;
+        write("open", { ok: true, path: path });
       };
       ws.onclose = (event) => {
         statusNode.textContent = "status: closed";
@@ -232,6 +233,14 @@ const demoPage = `<!doctype html>
           write("message", event.data);
         }
       };
+    }
+
+    function connect() {
+      connectTo("/socket");
+    }
+
+    function connectCustom() {
+      connectTo("/socket/custom");
     }
 
     function disconnect() {
@@ -287,7 +296,43 @@ func main() {
 	infra.Go()
 }
 
+func acceptOptions(ctx *web.Context, socket web.Socket) ws.AcceptOptions {
+	return ws.AcceptOptions{
+		Conn:       socket,
+		Meta:       ctx.Meta,
+		Name:       ctx.Name,
+		Site:       ctx.Site,
+		Host:       ctx.Host,
+		Domain:     ctx.Domain,
+		RootDomain: ctx.RootDomain,
+		Path:       ctx.Path,
+		Uri:        ctx.Uri,
+		Setting:    ctx.Setting,
+		Params:     ctx.Params,
+		Query:      ctx.Query,
+		Form:       ctx.Form,
+		Value:      ctx.Value,
+		Args:       ctx.Args,
+		Locals:     ctx.Locals,
+	}
+}
+
 func init() {
+	infra.Register("custom", web.Endpoint{
+		Name: "custom",
+		Desc: "demo custom ws endpoint",
+		Accept: func(ctx *web.Context, socket web.Socket) error {
+			opts := acceptOptions(ctx, socket)
+			locals := Map{}
+			for key, value := range opts.Locals {
+				locals[key] = value
+			}
+			locals["endpoint"] = "custom"
+			opts.Locals = locals
+			return ws.Accept(opts)
+		},
+	})
+
 	infra.Register(".index", web.Router{
 		Uri:  "/",
 		Name: "ws demo home",
@@ -301,6 +346,16 @@ func init() {
 		Name: "ws demo socket",
 		Action: func(ctx *web.Context) {
 			if err := ctx.Upgrade(); err != nil {
+				ctx.Error(infra.Fail.With(err.Error()))
+			}
+		},
+	})
+
+	infra.Register(".socket.custom", web.Router{
+		Uri:  "/socket/custom",
+		Name: "ws demo custom socket",
+		Action: func(ctx *web.Context) {
+			if err := ctx.Upgrade("custom"); err != nil {
 				ctx.Error(infra.Fail.With(err.Error()))
 			}
 		},
@@ -326,10 +381,15 @@ func init() {
 		Name: "ws access",
 		Open: func(ctx *ws.Context) {
 			fmt.Printf("[ws] open sid=%s route=%s host=%s\n", ctx.Session.ID, ctx.Session.Name, ctx.Session.Host)
+			endpoint, _ := ctx.Session.Locals["endpoint"].(string)
+			if endpoint == "" {
+				endpoint = "ws"
+			}
 			_ = ctx.Reply("demo.ready", Map{
-				"sid":   ctx.Session.ID,
-				"route": ctx.Session.Name,
-				"user":  ctx.Session.User,
+				"sid":      ctx.Session.ID,
+				"route":    ctx.Session.Name,
+				"user":     ctx.Session.User,
+				"endpoint": endpoint,
 			})
 		},
 		Close: func(ctx *ws.Context) {

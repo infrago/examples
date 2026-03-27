@@ -35,17 +35,6 @@ require (
 	github.com/infrago/ws v0.18.0
 )
 
-
-
-
-
-
-
-
-
-
-
-
 require (
 	filippo.io/edwards25519 v1.1.0 // indirect
 	github.com/GreptimeTeam/greptime-proto v0.4.3 // indirect
@@ -129,3 +118,29 @@ require (
 	github.com/tidwall/rtred v0.1.2 // indirect
 	github.com/tidwall/tinyqueue v0.1.1 // indirect
 )
+
+replace github.com/infrago/base => ../base
+
+replace github.com/infrago/builtin => ../builtin
+
+replace github.com/infrago/bus => ../bus
+
+replace github.com/infrago/bus-nats => ../bus-nats
+
+replace github.com/infrago/bus-redis => ../bus-redis
+
+replace github.com/infrago/http => ../http
+
+replace github.com/infrago/infra => ../infra
+
+replace github.com/infrago/log => ../log
+
+replace github.com/infrago/mutex => ../mutex
+
+replace github.com/infrago/mutex-redis => ../mutex-redis
+
+replace github.com/infrago/view => ../view
+
+replace github.com/infrago/web => ../web
+
+replace github.com/infrago/ws => ../ws
