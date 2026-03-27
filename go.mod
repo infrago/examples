@@ -3,59 +3,48 @@ module github.com/infrago/examples
 go 1.25.3
 
 require (
-	github.com/infrago/base v0.17.0
-	github.com/infrago/builtin v0.17.0
-	github.com/infrago/bus v0.17.0
-	github.com/infrago/bus-nats v0.17.0 // indirect
-	github.com/infrago/bus-redis v0.17.0
-	github.com/infrago/cron v0.17.0
-	github.com/infrago/cron-postgres v0.17.0
-	github.com/infrago/data v0.17.0
-	github.com/infrago/data-mysql v0.17.0
-	github.com/infrago/data-postgres v0.17.0
-	github.com/infrago/data-sqlite v0.17.0
-	github.com/infrago/http v0.17.0
-	github.com/infrago/infra v0.17.0
-	github.com/infrago/log v0.17.0
-	github.com/infrago/log-file v0.17.0
-	github.com/infrago/log-greptime v0.17.0
-	github.com/infrago/mutex v0.17.0
-	github.com/infrago/mutex-redis v0.17.0 // indirect
-	github.com/infrago/search v0.17.0
-	github.com/infrago/search-elasticsearch v0.17.0
-	github.com/infrago/search-file v0.17.0
-	github.com/infrago/search-meilisearch v0.17.0
-	github.com/infrago/search-opensearch v0.17.0
-	github.com/infrago/trace v0.17.0
-	github.com/infrago/trace-file v0.17.0
-	github.com/infrago/trace-greptime v0.17.0
-	github.com/infrago/util v0.17.0 // indirect
-	github.com/infrago/view v0.17.0 // indirect
-	github.com/infrago/web v0.17.0
-	github.com/infrago/ws v0.17.0
+	github.com/infrago/base v0.18.0
+	github.com/infrago/builtin v0.18.0
+	github.com/infrago/bus v0.18.0
+	github.com/infrago/bus-nats v0.18.0 // indirect
+	github.com/infrago/bus-redis v0.18.0
+	github.com/infrago/cron v0.18.0
+	github.com/infrago/cron-postgres v0.18.0
+	github.com/infrago/data v0.18.0
+	github.com/infrago/data-mysql v0.18.0
+	github.com/infrago/data-postgres v0.18.0
+	github.com/infrago/data-sqlite v0.18.0
+	github.com/infrago/http v0.18.0
+	github.com/infrago/infra v0.18.0
+	github.com/infrago/log v0.18.0
+	github.com/infrago/log-file v0.18.0
+	github.com/infrago/log-greptime v0.18.0
+	github.com/infrago/mutex v0.18.0
+	github.com/infrago/mutex-redis v0.18.0 // indirect
+	github.com/infrago/search v0.18.0
+	github.com/infrago/search-elasticsearch v0.18.0
+	github.com/infrago/search-file v0.18.0
+	github.com/infrago/search-meilisearch v0.18.0
+	github.com/infrago/search-opensearch v0.18.0
+	github.com/infrago/trace v0.18.0
+	github.com/infrago/trace-file v0.18.0
+	github.com/infrago/trace-greptime v0.18.0
+	github.com/infrago/util v0.18.0 // indirect
+	github.com/infrago/view v0.18.0 // indirect
+	github.com/infrago/web v0.18.0
+	github.com/infrago/ws v0.18.0
 )
 
-replace github.com/infrago/base => ../base
 
-replace github.com/infrago/builtin => ../builtin
 
-replace github.com/infrago/bus => ../bus
 
-replace github.com/infrago/bus-nats => ../bus-nats
 
-replace github.com/infrago/bus-redis => ../bus-redis
 
-replace github.com/infrago/infra => ../infra
 
-replace github.com/infrago/mutex => ../mutex
 
-replace github.com/infrago/mutex-redis => ../mutex-redis
 
-replace github.com/infrago/view => ../view
 
-replace github.com/infrago/web => ../web
 
-replace github.com/infrago/ws => ../ws
 
 require (
 	filippo.io/edwards25519 v1.1.0 // indirect
@@ -89,8 +78,8 @@ require (
 	github.com/golang/snappy v0.0.4 // indirect
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/gorilla/mux v1.8.1 // indirect
-	github.com/infrago/token v0.17.0
-	github.com/infrago/token-memory v0.17.0
+	github.com/infrago/token v0.18.0
+	github.com/infrago/token-memory v0.18.0
 	github.com/jackc/pgpassfile v1.0.0 // indirect
 	github.com/jackc/pgservicefile v0.0.0-20240606120523-5a60cdf6a761 // indirect
 	github.com/jackc/pgx/v5 v5.7.6 // indirect
