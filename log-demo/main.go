@@ -4,10 +4,10 @@ import (
 	"sync"
 	"time"
 
-	"github.com/infrago/infra"
 	. "github.com/infrago/base"
 	_ "github.com/infrago/builtin"
 	"github.com/infrago/http"
+	"github.com/infrago/infra"
 	"github.com/infrago/log"
 	_ "github.com/infrago/log-file"
 	_ "github.com/infrago/log-greptime"
@@ -40,7 +40,6 @@ func init() {
 		Name: "Log Demo",
 		Desc: "emit many logs to test async batch and overflow strategy",
 		Action: func(ctx *infra.Context) {
-			return
 			const workers = 16
 			const perWorker = 5000
 
